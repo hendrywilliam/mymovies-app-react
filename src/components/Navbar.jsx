@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 export default class Navbar extends Component {
   render() {
+    const { home, cinema, series, local, kids, donkey } = this.props;
     return (
       <div className="navbar bg-black md:px-10 z-10 fixed">
         <div className="navbar-start">
@@ -27,40 +28,42 @@ export default class Navbar extends Component {
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a>Cinema</a>
+                <a onClick={cinema}>Cinema</a>
               </li>
               <li>
-                <a>Series</a>
+                <a onClick={series}>Series</a>
               </li>
               <li>
-                <a>Local</a>
+                <a onClick={local}>Local</a>
               </li>
               <li>
-                <a>Kids</a>
+                <a onClick={kids}>Kids</a>
               </li>
               <li>
-                <a>Donkey+</a>
+                <a onClick={donkey}>Donkey+</a>
               </li>
             </ul>
           </div>
-          <a className="normal-case text-lg text-white">Donkey+</a>
+          <a className="normal-case text-lg text-white" onClick={home}>
+            Donkey+
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0 text-white">
             <li>
-              <a>Cinema</a>
+              <a onClick={cinema}>Cinema</a>
             </li>
             <li>
-              <a>Series</a>
+              <a onClick={series}>Series</a>
             </li>
             <li>
-              <a>Local</a>
+              <a onClick={local}>Local</a>
             </li>
             <li>
-              <a>Kids</a>
+              <a onClick={kids}>Kids</a>
             </li>
             <li>
-              <a>Donkey+</a>
+              <a onClick={donkey}>Donkey+</a>
             </li>
           </ul>
         </div>
