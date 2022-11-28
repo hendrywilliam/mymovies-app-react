@@ -4,6 +4,12 @@ import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  ThemeProvider,
+  useTheme,
+  useThemeUpdate,
+} from "../context/ThemeContext";
+import Footer from "../components/Footer";
 
 const baseUrl = "https://api.themoviedb.org/3/";
 const urlHeadline =
@@ -61,6 +67,8 @@ function Home() {
   ]);
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
+  const darkTheme = useTheme();
+  const toggleTheme = useThemeUpdate();
 
   const getNowPlaying = () => {
     axios
@@ -89,11 +97,10 @@ function Home() {
     <div>
       <Navbar
         home={() => navigate("/")}
-        cinema={() => navigate("/cinema")}
-        series={() => navigate("/series")}
-        local={() => navigate("/local")}
-        kids={() => navigate("/kids")}
-        donkey={() => navigate("/donkeyplus")}
+        background={`${darkTheme ? `bg-black` : `bg-white`}`}
+        color={`${darkTheme ? `text-white` : `text-black`}`}
+        changeMode={toggleTheme}
+        textButtonMode={`${darkTheme ? `🌙` : `☀️`}`}
       />
       <div className="carousel w-full h-96 lg:h-[40rem] overflow-hidden">
         {carousel.map((slide) => {
@@ -130,7 +137,10 @@ function Home() {
           );
         })}
       </div>
-      <Container>
+      <Container
+        background={`${darkTheme ? `bg-black` : `bg-white`}`}
+        text={`${darkTheme ? `text-white` : `text-black`}`}
+      >
         {movies.map((result) => {
           return (
             <Card
@@ -141,6 +151,10 @@ function Home() {
           );
         })}
       </Container>
+      <Footer
+        background={`${darkTheme ? `bg-black` : `bg-white`}`}
+        textColor={`${darkTheme ? `text-white` : `text-black`}`}
+      />
     </div>
   );
 }

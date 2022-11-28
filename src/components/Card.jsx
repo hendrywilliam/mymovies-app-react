@@ -2,7 +2,7 @@ import React from "react";
 
 function Card({ title, url, onClick }) {
   return (
-    <div className="card w-50 bg-base-100 image-full z-0">
+    <div className="card w-30 bg-base-100 image-full z-0">
       <figure>
         <img src={url} alt="Shoes" />
       </figure>
