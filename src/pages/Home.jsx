@@ -4,12 +4,9 @@ import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  ThemeProvider,
-  useTheme,
-  useThemeUpdate,
-} from "../context/ThemeContext";
 import Footer from "../components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../features/darkThemeSlice";
 
 const baseUrl = "https://api.themoviedb.org/3/";
 const urlHeadline =
@@ -67,8 +64,8 @@ function Home() {
   ]);
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
-  const darkTheme = useTheme();
-  const toggleTheme = useThemeUpdate();
+  const { darkTheme } = useSelector((state) => state.darkTheme);
+  const dispatch = useDispatch();
 
   const getNowPlaying = () => {
     axios
@@ -99,7 +96,7 @@ function Home() {
         home={() => navigate("/")}
         background={`${darkTheme ? `bg-black` : `bg-white`}`}
         color={`${darkTheme ? `text-white` : `text-black`}`}
-        changeMode={toggleTheme}
+        changeMode={() => dispatch(toggleTheme())}
         textButtonMode={`${darkTheme ? `🌙` : `☀️`}`}
       />
       <div className="carousel w-full h-96 lg:h-[40rem] overflow-hidden">

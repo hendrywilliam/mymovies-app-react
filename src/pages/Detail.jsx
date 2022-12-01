@@ -3,16 +3,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { HiArrowLeftCircle } from "react-icons/hi2";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import { useTheme, useThemeUpdate } from "../context/ThemeContext";
 import Footer from "../components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../features/darkThemeSlice";
+import { addFavorite } from "../features/addFavorite";
 
 function Detail() {
   const location = useLocation();
   const navigate = useNavigate();
-  const item = location?.state?.item;
   const [similarMovies, setSimilarMovies] = useState([]);
-  const darkTheme = useTheme();
-  const toggleTheme = useThemeUpdate();
+  const { darkTheme } = useSelector((state) => state.darkTheme);
+  const [favoriteMovie, setFavoriteMovies] = useState("");
+  const dispatch = useDispatch();
+  const item = location?.state?.item;
 
   const baseUrl = "https://api.themoviedb.org/3/";
   const getUrl =
@@ -30,8 +33,14 @@ function Detail() {
       });
   };
 
+  const handleFavorite = () => {
+    dispatch(addFavorite(favoriteMovie));
+    navigate("/favorites");
+  };
+
   useEffect(() => {
     getSimilarMovies();
+    setFavoriteMovies(item);
   }, []);
 
   return (
@@ -40,7 +49,7 @@ function Detail() {
         home={() => navigate("/")}
         background={`${darkTheme ? `bg-black` : `bg-white`}`}
         color={`${darkTheme ? `text-white` : `text-black`}`}
-        changeMode={toggleTheme}
+        changeMode={() => dispatch(toggleTheme())}
         textButtonMode={`${darkTheme ? `🌙` : `☀️`}`}
       />
       <div
@@ -70,6 +79,9 @@ function Detail() {
             </div>
           </div>
           <div>
+            <button className="text-white" onClick={() => handleFavorite()}>
+              Add to favorite
+            </button>
             <p className=" pt-5">Similar Movies:</p>
             <div className="h-full grid grid-rows-2 grid-flow-col gap-4">
               {similarMovies.map((movie) => {

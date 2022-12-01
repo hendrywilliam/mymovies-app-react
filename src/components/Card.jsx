@@ -13,7 +13,7 @@ function Card({ title, url, onClick }) {
             className="inset-x-0 bottom-0 btn btn-primary"
             onClick={onClick}
           >
-            Watch Now
+            WATCH NOW
           </button>
         </div>
       </div>
