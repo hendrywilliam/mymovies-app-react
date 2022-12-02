@@ -79,7 +79,10 @@ function Detail() {
             </div>
           </div>
           <div>
-            <button className="text-white" onClick={() => handleFavorite()}>
+            <button
+              className={`${darkTheme ? `text-white` : `text-black`}`}
+              onClick={() => handleFavorite()}
+            >
               Add to favorite
             </button>
             <p className=" pt-5">Similar Movies:</p>

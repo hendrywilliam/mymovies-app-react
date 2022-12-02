@@ -16,10 +16,10 @@ function Favorites() {
   };
 
   return (
-    <div>
-      <p>Favorite Movies:</p>
+    <div className="w-full px-60 pt-20">
+      <p className="text-4xl">Favorite Movies:</p>
       <button onClick={() => navigate("/")}>Back</button>
-      <div>
+      <div className="align-center px-20">
         {favorite?.map((favoritez) => {
           return (
             <div>
