@@ -144,6 +144,8 @@ function Home() {
               title={result.original_title}
               url={`https://image.tmdb.org/t/p/original/${result.poster_path}`}
               onClick={() => handleDetail(result)}
+              vote_average={result.vote_average}
+              vote_count={result.vote_count}
             />
           );
         })}

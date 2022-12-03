@@ -7,13 +7,14 @@ import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../features/darkThemeSlice";
 import { addFavorite } from "../features/addFavorite";
+import "swiper/css";
 
 function Detail() {
   const location = useLocation();
   const navigate = useNavigate();
   const [similarMovies, setSimilarMovies] = useState([]);
   const { darkTheme } = useSelector((state) => state.darkTheme);
-  const [favoriteMovie, setFavoriteMovies] = useState("");
+  const [favoriteMovie, setFavoriteMovies] = useState([]);
   const dispatch = useDispatch();
   const item = location?.state?.item;
 
@@ -33,14 +34,14 @@ function Detail() {
       });
   };
 
-  const handleFavorite = () => {
-    dispatch(addFavorite(favoriteMovie));
+  const handleFavorite = (favmovie) => {
+    dispatch(addFavorite(favmovie));
     navigate("/favorites");
   };
 
   useEffect(() => {
     getSimilarMovies();
-    setFavoriteMovies(item);
+    setFavoriteMovies(location?.state?.item);
   }, []);
 
   return (
@@ -55,9 +56,9 @@ function Detail() {
       <div
         className={`${
           darkTheme ? `bg-black text-white` : `bg-white text-black`
-        } w-full h-auto flex`}
+        } p-24 h-auto flex`}
       >
-        <div className="m-40 h-auto">
+        <div className="h-auto w-screen">
           <button onClick={() => navigate(-1)}>
             <HiArrowLeftCircle className=" mb-2" size={70} />
           </button>
@@ -68,7 +69,7 @@ function Detail() {
             <span>Release Date: </span> {item.release_date}
           </p>
           <div className="flex flex-row">
-            <div className="w-1/4 h-fit">
+            <div className="h-fit flex-row">
               <img
                 src={`https://image.tmdb.org/t/p/original/${item.poster_path}`}
                 width={240}
@@ -80,13 +81,15 @@ function Detail() {
           </div>
           <div>
             <button
-              className={`${darkTheme ? `text-white` : `text-black`}`}
-              onClick={() => handleFavorite()}
+              className={`btn mt-5 btn-outline ${
+                darkTheme ? `text-white` : `text-black`
+              }`}
+              onClick={() => handleFavorite(favoriteMovie)}
             >
               Add to favorite
             </button>
             <p className=" pt-5">Similar Movies:</p>
-            <div className="h-full grid grid-rows-2 grid-flow-col gap-4">
+            <div className="h-max w-fit grid grid-rows-2 grid-flow-col gap-4">
               {similarMovies.map((movie) => {
                 return (
                   <div className="w-full">

@@ -1,16 +1,19 @@
 import React from "react";
 
-function Card({ title, url, onClick }) {
+function Card({ title, url, onClick, vote_average, vote_count }) {
   return (
-    <div className="card w-30 bg-base-100 image-full z-0">
+    <div className="relative card w-30 bg-base-100 image-full z-0 text-white">
       <figure>
-        <img src={url} alt="Shoes" />
+        <img src={url} />
       </figure>
-      <div className="card-body relative">
-        <h2 className="card-title uppercase">{title}</h2>
-        <div className="absolute bottom-0 right-0 card-actions justify-end">
+      <div className="absolute h-full card-body">
+        <h2 className="card-title uppercase text-white text-xs">{title}</h2>
+        <p>
+          ⭐ {vote_average} ({vote_count})
+        </p>
+        <div className="bottom-0 right-5 card-actions justify-end">
           <button
-            className="inset-x-0 bottom-0 btn btn-primary"
+            className="btn btn-block text-white text-xs"
             onClick={onClick}
           >
             WATCH NOW
